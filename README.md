@@ -42,4 +42,4 @@ OLD_PD_ADDRS
 PD_ADDRS
 ```
 
-Unwatched properties are omitted. A `OLD_*` variable contain the old value before the change, and is omitted if the interface previously had no IP.
+Unwatched properties are omitted. A `OLD_*` variable contains the old value before the change, and is omitted if the interface previously had no IP.
