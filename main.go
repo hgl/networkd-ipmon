@@ -381,7 +381,7 @@ func (iface *Interface) runScriptsIfChanged() error {
 		stderr := new(bytes.Buffer)
 		cmd.Stdout = stdout
 		cmd.Stderr = stderr
-		slog.Debug("runing script", "env", env, "path", path)
+		slog.Info("running script", "env", env, "path", path)
 		err := cmd.Run()
 		if err != nil {
 			slog.Error("script failed to run", "env", env, "path", path, "stdout", stdout.String(), "stderr", stderr.String())
