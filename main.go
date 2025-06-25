@@ -16,8 +16,8 @@ import (
 	"time"
 
 	"github.com/godbus/dbus/v5"
-	"github.com/hgl/networkd-ipmon/ordered"
-	"github.com/hgl/networkd-ipmon/set"
+	"github.com/hgl/networkd-ipmon/internal/ordered"
+	"github.com/hgl/networkd-ipmon/internal/set"
 )
 
 func main() {
