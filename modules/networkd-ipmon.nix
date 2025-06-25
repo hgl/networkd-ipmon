@@ -13,7 +13,7 @@ let
       concatMapAttrsToList (name: rule: [
         {
           name = "${name}.json";
-          path = pkgs.writeText "${name}.json" (builtins.toJSON { inherit (rule) interfaces watch; });
+          path = pkgs.writeText "${name}.json" (builtins.toJSON { inherit (rule) interfaces properties; });
         }
         {
           inherit name;
@@ -39,10 +39,16 @@ in
           lib.types.submodule {
             options = {
               interfaces = lib.mkOption {
-                type = lib.types.listOf lib.types.str;
+                type = lib.types.nonEmptyListOf lib.types.nonEmptyStr;
               };
-              watch = lib.mkOption {
-                type = lib.types.listOf lib.types.str;
+              properties = lib.mkOption {
+                type = lib.types.nonEmptyListOf (
+                  lib.types.enum [
+                    "IPV6_ADDRS"
+                    "IPV4_ADDRS"
+                    "PD_ADDRS"
+                  ]
+                );
               };
               script = lib.mkOption {
                 type = lib.types.path;
