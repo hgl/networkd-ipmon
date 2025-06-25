@@ -76,8 +76,8 @@ type script struct {
 }
 
 type scriptConfig struct {
-	Interfaces []string
-	Properties *set.Set[string]
+	Interfaces []string        `json:"interfaces"`
+	Properties set.Set[string] `json:"properties"`
 }
 
 func LoadInterfaces(dir string, conn *dbus.Conn) (*Interfaces, error) {
@@ -109,16 +109,16 @@ outer:
 				continue
 			}
 			slog.Debug("reading json", "file", path)
-			var props scriptConfig
-			err := ReadJSON(path, &props)
+			var config scriptConfig
+			err := ReadJSON(path, &config)
 			if err != nil {
 				return nil, err
 			}
-			if props.Properties.Len() == 0 {
+			if config.Properties.Len() == 0 {
 				slog.Warn("nothing to watch, ignored", "file", path)
 				continue
 			}
-			for val := range props.Properties.All() {
+			for val := range config.Properties.All() {
 				switch val {
 				case keyIPv6, keyIPv4, keyPD:
 				default:
@@ -126,10 +126,10 @@ outer:
 					continue outer
 				}
 			}
-			slog.Debug("read json file", "props", props)
+			slog.Debug("read json file", "props", config)
 			path = strings.TrimSuffix(path, ".json")
 			script, _ := scripts.Get(path)
-			script.Config = &props
+			script.Config = &config
 			scripts.Set(path, script)
 		}
 	}

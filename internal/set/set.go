@@ -28,16 +28,16 @@ func (s *Set[E]) AddSlice(els ...E) {
 	}
 }
 
-func (s *Set[E]) Contains(v E) bool {
+func (s Set[E]) Contains(v E) bool {
 	_, ok := s.m[v]
 	return ok
 }
 
-func (s *Set[E]) Len() int {
+func (s Set[E]) Len() int {
 	return len(s.m)
 }
 
-func (s *Set[E]) Equal(s2 Set[E]) bool {
+func (s Set[E]) Equal(s2 Set[E]) bool {
 	if len(s.m) != len(s2.m) {
 		return false
 	}
@@ -49,7 +49,7 @@ func (s *Set[E]) Equal(s2 Set[E]) bool {
 	return true
 }
 
-func (s *Set[E]) All() iter.Seq[E] {
+func (s Set[E]) All() iter.Seq[E] {
 	return func(yield func(E) bool) {
 		for v := range s.m {
 			if !yield(v) {
@@ -59,13 +59,13 @@ func (s *Set[E]) All() iter.Seq[E] {
 	}
 }
 
-func (s *Set[E]) Clone() Set[E] {
+func (s Set[E]) Clone() Set[E] {
 	var r Set[E]
 	r.m = maps.Clone(s.m)
 	return r
 }
 
-func (s *Set[E]) Union(sets ...Set[E]) Set[E] {
+func (s Set[E]) Union(sets ...Set[E]) Set[E] {
 	r := s.Clone()
 	for _, s := range sets {
 		for v := range s.m {
