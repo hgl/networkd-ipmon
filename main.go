@@ -21,7 +21,6 @@ import (
 )
 
 func main() {
-	slog.SetLogLoggerLevel(slog.LevelDebug)
 	err := Listen(os.Args[1])
 	if err != nil {
 		slog.Error(err.Error())
